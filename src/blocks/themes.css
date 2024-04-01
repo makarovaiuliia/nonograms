@@ -1,0 +1,21 @@
+.page.theme-dark {
+  --secondary-color: #cd737c;
+  --complimentary-color: #292929;
+  --accent-color: #ff7597;
+  --game-background: #303030;
+  --game-accent-background: #cd737c;
+  --cross: url(../assets/images/cross_theme-dark.png);
+  --cross-clue: url(../assets/images/cross-clue-dark.png);
+}
+
+@media (prefers-color-scheme: dark) {
+  .page {
+    --secondary-color: #ff0266;
+    --complimentary-color: #292929;
+    --accent-color: #ff7597;
+    --game-background: #303030;
+    --game-accent-background: #ff0266;
+    --cross: url(../assets/images/cross_theme-dark.png);
+    --cross-clue: url(../assets/images/cross-clue-dark.png);
+  }
+}
