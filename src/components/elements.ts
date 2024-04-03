@@ -98,7 +98,7 @@ export const gameController = createElement(
   ]
 );
 
-export const gameBoard = createElement('div');
+export const gameBoard = createElement('div', { id: 'gameBoard' });
 
 export const game = createElement('div', { className: 'game' }, [
   gameController,

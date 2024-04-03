@@ -79,3 +79,68 @@ export function generateClues(solution: number[][]) {
 
   return { rowClues, columnClues };
 }
+export let maxRowHints: number;
+export let maxColHints: number;
+
+export function generateGrid(
+  solution: number[][],
+  hints: { rowClues: number[][]; columnClues: number[][] }
+): HTMLElement {
+  const grid = createElement('table', { className: 'game__table' });
+
+  const maxColumnClues = Math.max(
+    ...hints.columnClues.map((clue) => clue.length)
+  );
+  maxColHints = maxColumnClues;
+  const maxRowClues = Math.max(...hints.rowClues.map((clue) => clue.length));
+  maxRowHints = maxRowClues;
+
+  for (let i = 0; i < maxColumnClues; i++) {
+    const clueRow = document.createElement('tr');
+
+    if (i < 1) {
+      const alignCell = document.createElement('td');
+      alignCell.rowSpan = maxColumnClues - i;
+      alignCell.colSpan = maxRowClues;
+      clueRow.appendChild(alignCell);
+    }
+
+    hints.columnClues.forEach((clue, index) => {
+      const clueCell = createElement('td', { className: 'game__clue-cell' });
+      if ((index + 1) % 5 === 0) {
+        clueCell.classList.add('game__clue-cell-thick-border');
+      }
+      clueCell.textContent = clue.length > i ? clue[i].toString() : '';
+      clueRow.appendChild(clueCell);
+    });
+    grid.appendChild(clueRow);
+  }
+
+  solution.forEach((row, rowIndex) => {
+    const tr = document.createElement('tr');
+
+    if ((rowIndex + 1) % 5 === 0) {
+      tr.classList.add('game__row-thick-border');
+    }
+
+    for (let i = 0; i < maxRowClues; i++) {
+      const clueCell = createElement('td', { className: 'game__clue-cell' });
+      clueCell.textContent =
+        hints.rowClues[rowIndex].length > i
+          ? hints.rowClues[rowIndex][i].toString()
+          : '';
+      tr.appendChild(clueCell);
+    }
+
+    row.forEach((_, index) => {
+      const td = createElement('td', { className: 'game__cell' });
+      if ((index + 1) % 5 === 0) {
+        td.classList.add('game__cell-thick-border');
+      }
+      tr.appendChild(td);
+    });
+    grid.appendChild(tr);
+  });
+
+  return grid;
+}
